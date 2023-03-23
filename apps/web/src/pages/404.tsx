@@ -1,5 +1,5 @@
 import {Box, Center, Container, useBreakpointValue} from "@chakra-ui/react";
-import style from '@/styles/404.module.css'
+import style from '../styles/404.module.css'
 import Link from "next/link";
 
 export default function Page404() {
