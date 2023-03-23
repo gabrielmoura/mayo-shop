@@ -4,14 +4,16 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build","^db:generate"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
+      "env": ["NEXT_PUBLIC_BACKEND","JWT_SECRET","API_PORT"]
     },
     "lint": {
       "outputs": []
     },
     "dev": {
       "dependsOn": ["^db:generate"],
-      "cache": false
+      "cache": false,
+      "env": ["NEXT_PUBLIC_BACKEND","JWT_SECRET","API_PORT"]
     },
     "db:generate": {
       "cache": false
