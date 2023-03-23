@@ -18,3 +18,17 @@ model User {
   password String
   imageUrl String?
 }
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  price       Float
+  img         String
+  description String
+  collection  String
+  link        String
+  album       Json?    @db.Json
+  size        Json?    @db.Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
