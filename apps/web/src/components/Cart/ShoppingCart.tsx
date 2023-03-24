@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import {
   Badge,
+  Button,
   Center,
   Drawer,
   DrawerBody,
@@ -18,10 +19,11 @@ import {
   Tr
 } from "@chakra-ui/react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { FaArrowRight, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { CartContext } from "../../context/CartProvider";
 import { formatPrice } from "./PriceTag";
 import { CartOrderSummary } from "./CartOrderSummary";
+import { useRouter } from "next/router";
 
 function CartIconButton({ total }: { total: number }) {
   return (<>
@@ -32,6 +34,7 @@ function CartIconButton({ total }: { total: number }) {
 
 const ShoppingCart = () => {
   const { items, addItem, removeItem, cart, totalItems } = useContext(CartContext);
+  const router = useRouter();
 
   return (
     <>
@@ -41,7 +44,7 @@ const ShoppingCart = () => {
         <DrawerContent bg="gray.50">
           <DrawerHeader borderBottomWidth="1px">
             <Center>
-              <Image src="/next.svg" alt='logo' />
+              <Image src="/next.svg" alt="logo" />
             </Center>
           </DrawerHeader>
           <DrawerBody>
@@ -82,7 +85,12 @@ const ShoppingCart = () => {
                 </Tbody>
               </Table>
             </TableContainer>
-            <CartOrderSummary />
+            <CartOrderSummary>
+              <Button colorScheme="blue" size="lg" fontSize="md" rightIcon={<FaArrowRight />}
+                      onClick={() => router.push("/checkout")}>
+                Checkout
+              </Button>
+            </CartOrderSummary>
           </DrawerBody>
         </DrawerContent>
       </Drawer>

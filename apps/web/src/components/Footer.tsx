@@ -1,74 +1,67 @@
-import { Box, Button, Divider, Flex, Heading, Input, InputGroup, InputLeftElement, Text } from "@chakra-ui/react";
+import { Box, chakra, Container, Stack, Text, useColorModeValue, VisuallyHidden } from "@chakra-ui/react";
+import { FaGithub, FaLinkedin, FaRegEnvelope } from "react-icons/fa";
+import { ReactNode } from "react";
+import Image from "next/image";
 
-import { FaInstagram, FaLinkedin, FaRegEnvelope } from "react-icons/fa";
-import IconFooter from "./IconFooter";
 
-const Footer = () => {
+const SocialButton = ({
+                        children,
+                        label,
+                        href
+                      }: {
+  children: ReactNode;
+  label: string;
+  href: string;
+}) => {
   return (
-
-    <Box
-      position="absolute"
-      bottom="-10"
-      w="100%"
-      bg="white"
-      paddingTop={10}
-      h={100}
-    >
-      <Divider position="absolute" top="0" />
-      <Flex flexDirection="column" justifyContent="center" alignItems="center">
-        <Heading size="md" mb={2}>
-          Se inscrever
-        </Heading>
-        <Text align="center" maxWidth="400px" marginX={4} marginBottom={4}>
-          Atualizações sobre as quais você deseja saber - novos produtos, histórias e promoções. Sem spam.
-          Cancele a inscrição a qualquer momento.
-        </Text>
-        <form action="https://formsubmit.co/gmoura96@icloud.com" method="POST">
-          <Flex justifyContent="center" alignItems="center" marginX={5} marginBottom={7}>
-            <InputGroup>
-              <Input
-                borderRadius="8px 0px 0px 8px"
-                _focus={{ boxShadow: "none" }}
-                placeholder="Email"
-                name="Email"
-              />
-              <InputLeftElement>
-                <FaRegEnvelope />
-              </InputLeftElement>
-            </InputGroup>
-            <Button
-              type="submit"
-              paddingX={7}
-              variant="solid"
-              size="md"
-              borderRadius="0px 8px 8px 0px"
-              color="white"
-              bg="gray.700"
-              _hover={{ bg: "gray.700" }}
-              _active={{ bg: "gray.700" }}
-              _focus={{ boxShadow: "0 0 1px 2px black, 0 1px 1px rgba(0, 0, 0, .15)" }}
-            >
-              Se inscrever
-            </Button>
-          </Flex>
-        </form>
-        <Flex marginTop={4} justifyContent="center" alignItems="center" width="100%" bg="gray.100" paddingY={4}>
-          <a href="mailto:gmoura96@icloud.com">
-            <IconFooter icon={<FaRegEnvelope />} />
-          </a>
-          <a href="https://instagram.com">
-            <IconFooter icon={<FaInstagram />} mx="3" />
-          </a>
-          <a href="https://www.linkedin.com/in/gabrielblx32/">
-            <IconFooter icon={<FaLinkedin />} />
-          </a>
-        </Flex>
-        <Flex bg="gray.700" color="white" w="100%" justifyContent="center" paddingY={3}>
-          <Text fontWeight="thin" fontSize="15px">&copy; 2023 Gabriel Moura</Text>
-        </Flex>
-      </Flex>
-    </Box>
+    <chakra.button
+      bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
+      rounded={"full"}
+      w={8}
+      h={8}
+      cursor={"pointer"}
+      as={"a"}
+      href={href}
+      display={"inline-flex"}
+      alignItems={"center"}
+      justifyContent={"center"}
+      transition={"background 0.3s ease"}
+      _hover={{
+        bg: useColorModeValue("blackAlpha.200", "whiteAlpha.200")
+      }}>
+      <VisuallyHidden>{label}</VisuallyHidden>
+      {children}
+    </chakra.button>
   );
 };
 
-export default Footer;
+export default function SmallWithLogoLeft() {
+  return (
+    <Box
+      bg={useColorModeValue("gray.50", "gray.900")}
+      color={useColorModeValue("gray.700", "gray.200")}>
+      <Container
+        as={Stack}
+        maxW={"6xl"}
+        py={4}
+        direction={{ base: "column", md: "row" }}
+        spacing={4}
+        justify={{ base: "center", md: "space-between" }}
+        align={{ base: "center", md: "center" }}>
+        <Image src="next.svg" alt="logo" width={120} height={28} />
+        <Text>© 2023 Gabriel Moura. Todos os direitos reservados</Text>
+        <Stack direction={"row"} spacing={6}>
+          <SocialButton label={"Linkedin"} href={"https://www.linkedin.com/in/gabrielblx32/"}>
+            <FaLinkedin />
+          </SocialButton>
+          <SocialButton label={"Github"} href={"https://github.com/gabrielmoura"}>
+            <FaGithub />
+          </SocialButton>
+          <SocialButton label={"Instagram"} href={"mailto:gmoura96@icloud.com"}>
+            <FaRegEnvelope />
+          </SocialButton>
+        </Stack>
+      </Container>
+    </Box>
+  );
+}

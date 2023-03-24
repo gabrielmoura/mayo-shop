@@ -1,7 +1,6 @@
-import { Button, Flex, Heading, Link, Stack, Text, useColorModeValue as mode } from "@chakra-ui/react";
-import { FaArrowRight } from "react-icons/fa";
+import { Flex, Heading, Link, Stack, Text, useColorModeValue as mode } from "@chakra-ui/react";
 import { formatPrice } from "./PriceTag";
-import { useContext } from "react";
+import { ReactElement, useContext } from "react";
 
 import { useRouter } from "next/router";
 import { CartContext } from "../../context/CartProvider";
@@ -24,13 +23,13 @@ const OrderSummaryItem = (props: OrderSummaryItemProps) => {
   );
 };
 
-export const CartOrderSummary = () => {
+export const CartOrderSummary = ({ children }: { children?: ReactElement }) => {
   const { total } = useContext(CartContext);
   let router = useRouter();
 
   return (
     <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width="full">
-      <Heading size="md">Order Summary</Heading>
+      <Heading size="md">Resumo do Pedido</Heading>
 
       <Stack spacing="6">
         <OrderSummaryItem label="Subtotal" value={formatPrice(total)} />
@@ -53,12 +52,7 @@ export const CartOrderSummary = () => {
           </Text>
         </Flex>
       </Stack>
-
-      <Button colorScheme="blue" size="lg" fontSize="md" rightIcon={<FaArrowRight />}
-              onClick={() => router.push("/checkout")}>
-        Checkout
-      </Button>
-
+      {children}
     </Stack>
   );
 };

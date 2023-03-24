@@ -1,24 +1,32 @@
-import {Box, useBreakpointValue} from "@chakra-ui/react";
-import Head from "next/head";
-import {useContext} from "react";
-import { CartContext } from "../../context/CartProvider";
+import { Center, Divider, Heading, Stack } from "@chakra-ui/react";
+import { PaymentForm } from "../../components/Cart2/PaymentForm";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { CartOrderSummary } from "../../components/Cart/CartOrderSummary";
 
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "123");
+const ProductPage = () => (
+  <Center h="100vh">
+    <Stack isInline w="900px" spacing="4">
+      <Stack flexGrow={1} rounded="md" boxShadow="md">
+        <CartOrderSummary />
+      </Stack>
+      <Stack
+        alignSelf="baseline"
+        rounded="md"
+        boxShadow="md"
+        flex="0 0 66%"
+      >
+        <Heading p="2" size="lg" textAlign="center">
+          Pagar com cartão de crédito
+        </Heading>
+        <Divider />
+        <Elements stripe={stripePromise}>
+          <PaymentForm />
+        </Elements>
+      </Stack>
+    </Stack>
+  </Center>
+);
 
-export default function Checkout() {
-    const responsiveHeight = useBreakpointValue({base: "1550px", sm: "1450px", md: "90vh"})
-    const {total} = useContext(CartContext)
-    return (
-        <>
-            <Head>
-                <title>Shop Desafio</title>
-                <meta name="description" content="Shop Desafio é um shop"/>
-                <meta name="viewport" content="width=device-width, initial-scale=1"/>
-                <link rel="icon" href="/favicon.ico"/>
-            </Head>
-            <Box bg="gray.50" w="100%" h={responsiveHeight} paddingY={50} paddingX={5}>
-                <h1>Checkout</h1>
-                <p>Produto</p>
-            </Box>
-        </>
-    )
-}
+export default ProductPage;

@@ -5,7 +5,7 @@
     "build": {
       "dependsOn": ["^build","^db:generate"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
-      "env": ["NEXT_PUBLIC_BACKEND","JWT_SECRET","API_PORT"]
+      "env": ["NEXT_PUBLIC_BACKEND","JWT_SECRET","API_PORT","NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY"]
     },
     "lint": {
       "outputs": []
@@ -13,7 +13,7 @@
     "dev": {
       "dependsOn": ["^db:generate"],
       "cache": false,
-      "env": ["NEXT_PUBLIC_BACKEND","JWT_SECRET","API_PORT"]
+      "env": ["NEXT_PUBLIC_BACKEND","JWT_SECRET","API_PORT","NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY"]
     },
     "db:generate": {
       "cache": false
